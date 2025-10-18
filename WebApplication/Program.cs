@@ -1,4 +1,6 @@
 using System.Reflection;
+using WebApplication1.EjemploInyeccionDependencias;
+using WebApplication1.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,12 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+
+// Registrar la interfaz con su implementación
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+// Registrar el servicio de usuario
+builder.Services.AddScoped<UsuarioService>();
 
 
 var app = builder.Build();
